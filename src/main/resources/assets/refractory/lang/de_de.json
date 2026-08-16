@@ -1,0 +1,9 @@
+{
+  "refractory.name": "Refractory",
+  "itemGroup.refractory": "Refractory",
+  "item.refractory.kautschuk": "Kautschuk",
+  "item.refractory.gummi": "Gummi",
+  "block.refractory.kautschuk_log": "Kautschukstamm",
+  "block.refractory.kautschuk_leaves": "Kautschukblätter",
+  "block.refractory.kautschuk_sapling": "Kautschuksetzling"
+}

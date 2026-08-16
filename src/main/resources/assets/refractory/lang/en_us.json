@@ -1,0 +1,9 @@
+{
+  "refractory.name": "Refractory",
+  "itemGroup.refractory": "Refractory",
+  "item.refractory.kautschuk": "Rubber Sap",
+  "item.refractory.gummi": "Rubber",
+  "block.refractory.kautschuk_log": "Rubber Log",
+  "block.refractory.kautschuk_leaves": "Rubber Leaves",
+  "block.refractory.kautschuk_sapling": "Rubber Sapling"
+}
