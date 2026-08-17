@@ -14,6 +14,7 @@ public final class ModItems {
     public static final DeferredItem<BlockItem> KAUTSCHUK_LOG = ITEMS.registerSimpleBlockItem("kautschuk_log", ModBlocks.KAUTSCHUK_LOG);
     public static final DeferredItem<BlockItem> KAUTSCHUK_LEAVES = ITEMS.registerSimpleBlockItem("kautschuk_leaves", ModBlocks.KAUTSCHUK_LEAVES);
     public static final DeferredItem<BlockItem> KAUTSCHUK_SAPLING = ITEMS.registerSimpleBlockItem("kautschuk_sapling", ModBlocks.KAUTSCHUK_SAPLING);
+    public static final DeferredItem<BlockItem> KAUTSCHUK_SCHALE = ITEMS.registerSimpleBlockItem("kautschuk_schale", ModBlocks.KAUTSCHUK_SCHALE);
 
     private ModItems() {
     }

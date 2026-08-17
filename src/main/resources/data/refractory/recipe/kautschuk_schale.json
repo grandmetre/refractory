@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P P",
+    " P "
+  ],
+  "key": {
+    "P": { "item": "minecraft:oak_planks" }
+  },
+  "result": {
+    "id": "refractory:kautschuk_schale",
+    "count": 1
+  }
+}

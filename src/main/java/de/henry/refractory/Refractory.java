@@ -28,6 +28,7 @@ public final class Refractory {
             event.accept(ModItems.KAUTSCHUK_LOG);
             event.accept(ModItems.KAUTSCHUK_LEAVES);
             event.accept(ModItems.KAUTSCHUK_SAPLING);
+            event.accept(ModItems.KAUTSCHUK_SCHALE);
         }
     }
 }
