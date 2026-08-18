@@ -7,4 +7,8 @@
   "block.refractory.kautschuk_leaves": "Rubber Leaves",
   "block.refractory.kautschuk_sapling": "Rubber Sapling",
   "block.refractory.kautschuk_schale": "Rubber Bowl"
+  ,"block.refractory.kabelmaschine": "Cable Machine",
+  "item.refractory.kurbel": "Crank",
+  "item.refractory.kabel": "Cable",
+  "container.refractory.kabelmaschine": "Cable Machine"
 }

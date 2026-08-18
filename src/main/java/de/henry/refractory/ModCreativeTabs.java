@@ -18,6 +18,9 @@ public final class ModCreativeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.KAUTSCHUK);
                         output.accept(ModItems.GUMMI);
+                        output.accept(ModItems.KABEL);
+                        output.accept(ModItems.KURBEL);
+                        output.accept(ModItems.KABELMASCHINE);
                         output.accept(ModItems.KAUTSCHUK_LOG);
                         output.accept(ModItems.KAUTSCHUK_LEAVES);
                         output.accept(ModItems.KAUTSCHUK_SAPLING);

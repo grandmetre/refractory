@@ -16,6 +16,8 @@ public final class Refractory {
     public Refractory(IEventBus modEventBus) {
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        ModMenus.MENUS.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         modEventBus.addListener(Refractory::addItemsToIngredientsTab);
         LOGGER.info("{} was loaded.", MOD_ID);
@@ -25,6 +27,9 @@ public final class Refractory {
         if (CreativeModeTabs.INGREDIENTS.equals(event.getTabKey())) {
             event.accept(ModItems.KAUTSCHUK);
             event.accept(ModItems.GUMMI);
+            event.accept(ModItems.KABEL);
+            event.accept(ModItems.KURBEL);
+            event.accept(ModItems.KABELMASCHINE);
             event.accept(ModItems.KAUTSCHUK_LOG);
             event.accept(ModItems.KAUTSCHUK_LEAVES);
             event.accept(ModItems.KAUTSCHUK_SAPLING);

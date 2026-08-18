@@ -14,8 +14,19 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.Containers;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -74,6 +85,116 @@ public final class ModBlocks {
                     .strength(0.5F)
                     .noOcclusion()
                     .randomTicks()));
+    public static final DeferredBlock<KabelmaschineBlock> KABELMASCHINE = BLOCKS.register(
+            "kabelmaschine", () -> new KabelmaschineBlock());
+
+    /** A hand-cranked machine that combines one copper ingot and one rubber into cable. */
+    public static class KabelmaschineBlock extends BaseEntityBlock {
+        public static final MapCodec<KabelmaschineBlock> CODEC = simpleCodec(KabelmaschineBlock::new);
+        public static final net.minecraft.world.level.block.state.properties.DirectionProperty FACING =
+                BlockStateProperties.HORIZONTAL_FACING;
+        public static final BooleanProperty HAS_CRANK = BooleanProperty.create("has_crank");
+        public static final net.minecraft.world.level.block.state.properties.IntegerProperty TURNS =
+                net.minecraft.world.level.block.state.properties.IntegerProperty.create("turns", 0, 2);
+
+        public KabelmaschineBlock() {
+            this(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3.5F, 6.0F));
+        }
+
+        public KabelmaschineBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+            registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
+                    .setValue(HAS_CRANK, false).setValue(TURNS, 0));
+        }
+
+        @Override
+        protected MapCodec<? extends BaseEntityBlock> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new KabelmaschineBlockEntity(pos, state);
+        }
+
+        @Override
+        protected RenderShape getRenderShape(BlockState state) {
+            return RenderShape.MODEL;
+        }
+
+        @Override
+        public BlockState getStateForPlacement(BlockPlaceContext context) {
+            return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        }
+
+        @Override
+        protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+                Player player, InteractionHand hand, BlockHitResult hit) {
+            if (!state.getValue(HAS_CRANK) && stack.is(ModItems.KURBEL.get())) {
+                if (!level.isClientSide) {
+                    level.setBlock(pos, state.setValue(HAS_CRANK, true), Block.UPDATE_ALL);
+                    stack.consume(1, player);
+                    level.playSound(null, pos, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS, 0.7F, 1.2F);
+                }
+                return ItemInteractionResult.SUCCESS;
+            }
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        @Override
+        protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
+                Player player, BlockHitResult hit) {
+            if (player.isShiftKeyDown()) {
+                if (!level.isClientSide && player instanceof ServerPlayer serverPlayer
+                        && level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine) {
+                    serverPlayer.openMenu(machine, pos);
+                }
+                return InteractionResult.SUCCESS;
+            }
+            if (!state.getValue(HAS_CRANK)) {
+                if (!level.isClientSide && player instanceof ServerPlayer serverPlayer
+                        && level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine) {
+                    serverPlayer.openMenu(machine, pos);
+                }
+                return InteractionResult.SUCCESS;
+            }
+            if (!level.isClientSide) {
+                int nextTurn = state.getValue(TURNS) + 1;
+                level.playSound(null, pos, SoundEvents.CHAIN_STEP, SoundSource.BLOCKS, 0.8F, 0.75F + nextTurn * 0.12F);
+                if (nextTurn >= 3) {
+                    if (level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine
+                            && machine.canCraft()) {
+                        Direction front = state.getValue(FACING);
+                        BlockPos output = pos.relative(front);
+                        Containers.dropItemStack(level, output.getX() + 0.5, output.getY() + 0.35,
+                                output.getZ() + 0.5, new ItemStack(ModItems.KABEL.get()));
+                        machine.consumeIngredients();
+                    }
+                    nextTurn = 0;
+                }
+                level.setBlock(pos, state.setValue(TURNS, nextTurn), Block.UPDATE_ALL);
+            }
+            return InteractionResult.SUCCESS;
+        }
+
+        @Override
+        protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+            if (!state.is(newState.getBlock())) {
+                if (state.getValue(HAS_CRANK)) Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.KURBEL.get()));
+                if (level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine) {
+                    for (int slot = 0; slot < machine.getItems().getSlots(); slot++) {
+                        Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), machine.getItems().getStackInSlot(slot));
+                    }
+                }
+            }
+            super.onRemove(state, level, pos, newState, movedByPiston);
+        }
+
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            builder.add(FACING, HAS_CRANK, TURNS);
+        }
+    }
 
     public static class KautschukLogBlock extends RotatedPillarBlock {
         public KautschukLogBlock() {

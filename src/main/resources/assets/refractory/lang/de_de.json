@@ -6,5 +6,9 @@
   "block.refractory.kautschuk_log": "Kautschukstamm",
   "block.refractory.kautschuk_leaves": "Kautschukblätter",
   "block.refractory.kautschuk_sapling": "Kautschuksetzling",
-  "block.refractory.kautschuk_schale": "Kautschukschale"
+  "block.refractory.kautschuk_schale": "Kautschukschale",
+  "block.refractory.kabelmaschine": "Kabelmaschine",
+  "item.refractory.kurbel": "Kurbel",
+  "item.refractory.kabel": "Kabel",
+  "container.refractory.kabelmaschine": "Kabelmaschine"
 }
