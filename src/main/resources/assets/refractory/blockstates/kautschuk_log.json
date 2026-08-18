@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "axis=x": { "model": "refractory:block/kautschuk_log", "x": 90, "y": 90 },
-    "axis=y": { "model": "refractory:block/kautschuk_log" },
-    "axis=z": { "model": "refractory:block/kautschuk_log", "x": 90 }
-  }
-}

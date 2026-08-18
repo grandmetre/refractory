@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "refractory:block/kautschuk_log_top",
-    "side": "refractory:block/kautschuk_log"
-  }
-}

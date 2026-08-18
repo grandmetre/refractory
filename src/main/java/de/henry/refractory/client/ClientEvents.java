@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 public final class ClientEvents {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
-        event.register(ModMenus.KABELMASCHINE.get(), KabelmaschineScreen::new);
+        event.register(ModMenus.CABLE_MACHINE.get(), CableMachineScreen::new);
     }
 
     private ClientEvents() {

@@ -9,15 +9,15 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Refractory.MOD_ID);
 
-    public static final DeferredItem<Item> KAUTSCHUK = ITEMS.registerSimpleItem("kautschuk");
-    public static final DeferredItem<Item> GUMMI = ITEMS.registerSimpleItem("gummi");
-    public static final DeferredItem<Item> KABEL = ITEMS.registerSimpleItem("kabel");
-    public static final DeferredItem<Item> KURBEL = ITEMS.registerSimpleItem("kurbel", new Item.Properties().stacksTo(1));
-    public static final DeferredItem<BlockItem> KAUTSCHUK_LOG = ITEMS.registerSimpleBlockItem("kautschuk_log", ModBlocks.KAUTSCHUK_LOG);
-    public static final DeferredItem<BlockItem> KAUTSCHUK_LEAVES = ITEMS.registerSimpleBlockItem("kautschuk_leaves", ModBlocks.KAUTSCHUK_LEAVES);
-    public static final DeferredItem<BlockItem> KAUTSCHUK_SAPLING = ITEMS.registerSimpleBlockItem("kautschuk_sapling", ModBlocks.KAUTSCHUK_SAPLING);
-    public static final DeferredItem<BlockItem> KAUTSCHUK_SCHALE = ITEMS.registerSimpleBlockItem("kautschuk_schale", ModBlocks.KAUTSCHUK_SCHALE);
-    public static final DeferredItem<BlockItem> KABELMASCHINE = ITEMS.registerSimpleBlockItem("kabelmaschine", ModBlocks.KABELMASCHINE);
+    public static final DeferredItem<Item> RUBBER_SAP = ITEMS.registerSimpleItem("rubber_sap");
+    public static final DeferredItem<Item> RUBBER = ITEMS.registerSimpleItem("rubber");
+    public static final DeferredItem<Item> CABLE = ITEMS.registerSimpleItem("cable");
+    public static final DeferredItem<Item> CRANK = ITEMS.registerSimpleItem("crank", new Item.Properties().stacksTo(1));
+    public static final DeferredItem<BlockItem> RUBBER_LOG = ITEMS.registerSimpleBlockItem("rubber_log", ModBlocks.RUBBER_LOG);
+    public static final DeferredItem<BlockItem> RUBBER_LEAVES = ITEMS.registerSimpleBlockItem("rubber_leaves", ModBlocks.RUBBER_LEAVES);
+    public static final DeferredItem<BlockItem> RUBBER_SAPLING = ITEMS.registerSimpleBlockItem("rubber_sapling", ModBlocks.RUBBER_SAPLING);
+    public static final DeferredItem<BlockItem> RUBBER_BOWL = ITEMS.registerSimpleBlockItem("rubber_bowl", ModBlocks.RUBBER_BOWL);
+    public static final DeferredItem<BlockItem> CABLE_MACHINE = ITEMS.registerSimpleBlockItem("cable_machine", ModBlocks.CABLE_MACHINE);
 
     private ModItems() {
     }

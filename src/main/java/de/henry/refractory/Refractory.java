@@ -25,15 +25,15 @@ public final class Refractory {
 
     private static void addItemsToIngredientsTab(BuildCreativeModeTabContentsEvent event) {
         if (CreativeModeTabs.INGREDIENTS.equals(event.getTabKey())) {
-            event.accept(ModItems.KAUTSCHUK);
-            event.accept(ModItems.GUMMI);
-            event.accept(ModItems.KABEL);
-            event.accept(ModItems.KURBEL);
-            event.accept(ModItems.KABELMASCHINE);
-            event.accept(ModItems.KAUTSCHUK_LOG);
-            event.accept(ModItems.KAUTSCHUK_LEAVES);
-            event.accept(ModItems.KAUTSCHUK_SAPLING);
-            event.accept(ModItems.KAUTSCHUK_SCHALE);
+            event.accept(ModItems.RUBBER_SAP);
+            event.accept(ModItems.RUBBER);
+            event.accept(ModItems.CABLE);
+            event.accept(ModItems.CRANK);
+            event.accept(ModItems.CABLE_MACHINE);
+            event.accept(ModItems.RUBBER_LOG);
+            event.accept(ModItems.RUBBER_LEAVES);
+            event.accept(ModItems.RUBBER_SAPLING);
+            event.accept(ModItems.RUBBER_BOWL);
         }
     }
 }

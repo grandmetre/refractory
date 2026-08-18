@@ -9,9 +9,9 @@ public final class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Refractory.MOD_ID);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<KabelmaschineBlockEntity>> KABELMASCHINE =
-            BLOCK_ENTITIES.register("kabelmaschine", () -> BlockEntityType.Builder.of(
-                    KabelmaschineBlockEntity::new, ModBlocks.KABELMASCHINE.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CableMachineBlockEntity>> CABLE_MACHINE =
+            BLOCK_ENTITIES.register("cable_machine", () -> BlockEntityType.Builder.of(
+                    CableMachineBlockEntity::new, ModBlocks.CABLE_MACHINE.get()).build(null));
 
     private ModBlockEntities() {
     }

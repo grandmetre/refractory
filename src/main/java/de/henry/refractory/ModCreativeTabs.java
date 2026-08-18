@@ -14,16 +14,16 @@ public final class ModCreativeTabs {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB =
             CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.refractory"))
-                    .icon(() -> ModItems.KAUTSCHUK.get().getDefaultInstance())
+                    .icon(() -> ModItems.RUBBER_SAP.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-                        output.accept(ModItems.KAUTSCHUK);
-                        output.accept(ModItems.GUMMI);
-                        output.accept(ModItems.KABEL);
-                        output.accept(ModItems.KURBEL);
-                        output.accept(ModItems.KABELMASCHINE);
-                        output.accept(ModItems.KAUTSCHUK_LOG);
-                        output.accept(ModItems.KAUTSCHUK_LEAVES);
-                        output.accept(ModItems.KAUTSCHUK_SAPLING);
+                        output.accept(ModItems.RUBBER_SAP);
+                        output.accept(ModItems.RUBBER);
+                        output.accept(ModItems.CABLE);
+                        output.accept(ModItems.CRANK);
+                        output.accept(ModItems.CABLE_MACHINE);
+                        output.accept(ModItems.RUBBER_LOG);
+                        output.accept(ModItems.RUBBER_LEAVES);
+                        output.accept(ModItems.RUBBER_SAPLING);
                     })
                     .build());
 

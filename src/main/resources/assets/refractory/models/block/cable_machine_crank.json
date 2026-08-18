@@ -1,0 +1,17 @@
+{
+  "textures": { "iron": "minecraft:block/iron_block", "particle": "refractory:block/cable_machine_side" },
+  "elements": [
+    { "from": [7, 16, 7], "to": [9, 22, 9], "faces": {
+      "north": { "texture": "#iron" }, "south": { "texture": "#iron" },
+      "east": { "texture": "#iron" }, "west": { "texture": "#iron" }, "up": { "texture": "#iron" }
+    }},
+    { "from": [7, 21, 7], "to": [14, 23, 9], "faces": {
+      "north": { "texture": "#iron" }, "south": { "texture": "#iron" },
+      "east": { "texture": "#iron" }, "west": { "texture": "#iron" }, "up": { "texture": "#iron" }, "down": { "texture": "#iron" }
+    }},
+    { "from": [12, 22, 6.5], "to": [15, 25, 9.5], "faces": {
+      "north": { "texture": "#iron" }, "south": { "texture": "#iron" },
+      "east": { "texture": "#iron" }, "west": { "texture": "#iron" }, "up": { "texture": "#iron" }
+    }}
+  ]
+}

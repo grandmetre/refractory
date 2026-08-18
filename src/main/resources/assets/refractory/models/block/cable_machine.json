@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "refractory:block/cable_machine_side",
+    "up": "refractory:block/cable_machine_top",
+    "north": "refractory:block/cable_machine_front",
+    "south": "refractory:block/cable_machine_side",
+    "east": "refractory:block/cable_machine_side",
+    "west": "refractory:block/cable_machine_side",
+    "particle": "refractory:block/cable_machine_side"
+  }
+}

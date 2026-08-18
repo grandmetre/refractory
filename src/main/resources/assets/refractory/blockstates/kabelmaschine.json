@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    { "when": { "facing": "north" }, "apply": { "model": "refractory:block/kabelmaschine" } },
-    { "when": { "facing": "east" },  "apply": { "model": "refractory:block/kabelmaschine", "y": 90 } },
-    { "when": { "facing": "south" }, "apply": { "model": "refractory:block/kabelmaschine", "y": 180 } },
-    { "when": { "facing": "west" },  "apply": { "model": "refractory:block/kabelmaschine", "y": 270 } },
-    { "when": { "has_crank": "true" }, "apply": { "model": "refractory:block/kabelmaschine_kurbel" } }
-  ]
-}

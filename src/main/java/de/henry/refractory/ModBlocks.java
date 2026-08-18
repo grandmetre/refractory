@@ -54,54 +54,54 @@ public final class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Refractory.MOD_ID);
 
     private static final ResourceKey<net.minecraft.world.level.levelgen.feature.ConfiguredFeature<?, ?>>
-            KAUTSCHUK_TREE_FEATURE = ResourceKey.create(
+            RUBBER_TREE_FEATURE = ResourceKey.create(
                     Registries.CONFIGURED_FEATURE,
-                    ResourceLocation.fromNamespaceAndPath(Refractory.MOD_ID, "kautschuk_tree"));
+                    ResourceLocation.fromNamespaceAndPath(Refractory.MOD_ID, "rubber_tree"));
 
-    private static final TreeGrower KAUTSCHUK_TREE_GROWER = new TreeGrower(
-            Refractory.MOD_ID + ":kautschuk_tree",
+    private static final TreeGrower RUBBER_TREE_GROWER = new TreeGrower(
+            Refractory.MOD_ID + ":rubber_tree",
             Optional.empty(),
-            Optional.of(KAUTSCHUK_TREE_FEATURE),
+            Optional.of(RUBBER_TREE_FEATURE),
             Optional.empty());
 
-    public static final DeferredBlock<KautschukLogBlock> KAUTSCHUK_LOG = BLOCKS.register(
-            "kautschuk_log", KautschukLogBlock::new);
-    public static final DeferredBlock<LeavesBlock> KAUTSCHUK_LEAVES = BLOCKS.register(
-            "kautschuk_leaves",
+    public static final DeferredBlock<RubberLogBlock> RUBBER_LOG = BLOCKS.register(
+            "rubber_log", RubberLogBlock::new);
+    public static final DeferredBlock<LeavesBlock> RUBBER_LEAVES = BLOCKS.register(
+            "rubber_leaves",
             () -> new LeavesBlock(
                     BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
                             .strength(0.2F)
                             .isViewBlocking((state, level, pos) -> false)));
-    public static final DeferredBlock<SaplingBlock> KAUTSCHUK_SAPLING = BLOCKS.register(
-            "kautschuk_sapling",
+    public static final DeferredBlock<SaplingBlock> RUBBER_SAPLING = BLOCKS.register(
+            "rubber_sapling",
             () -> new SaplingBlock(
-                    KAUTSCHUK_TREE_GROWER,
+                    RUBBER_TREE_GROWER,
                     BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)
                             .strength(0.0F)
                             .noCollission()));
-    public static final DeferredBlock<KautschukSchaleBlock> KAUTSCHUK_SCHALE = BLOCKS.register(
-            "kautschuk_schale",
-            () -> new KautschukSchaleBlock(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<RubberBowlBlock> RUBBER_BOWL = BLOCKS.register(
+            "rubber_bowl",
+            () -> new RubberBowlBlock(BlockBehaviour.Properties.of()
                     .strength(0.5F)
                     .noOcclusion()
                     .randomTicks()));
-    public static final DeferredBlock<KabelmaschineBlock> KABELMASCHINE = BLOCKS.register(
-            "kabelmaschine", () -> new KabelmaschineBlock());
+    public static final DeferredBlock<CableMachineBlock> CABLE_MACHINE = BLOCKS.register(
+            "cable_machine", () -> new CableMachineBlock());
 
     /** A hand-cranked machine that combines one copper ingot and one rubber into cable. */
-    public static class KabelmaschineBlock extends BaseEntityBlock {
-        public static final MapCodec<KabelmaschineBlock> CODEC = simpleCodec(KabelmaschineBlock::new);
+    public static class CableMachineBlock extends BaseEntityBlock {
+        public static final MapCodec<CableMachineBlock> CODEC = simpleCodec(CableMachineBlock::new);
         public static final net.minecraft.world.level.block.state.properties.DirectionProperty FACING =
                 BlockStateProperties.HORIZONTAL_FACING;
         public static final BooleanProperty HAS_CRANK = BooleanProperty.create("has_crank");
         public static final net.minecraft.world.level.block.state.properties.IntegerProperty TURNS =
                 net.minecraft.world.level.block.state.properties.IntegerProperty.create("turns", 0, 2);
 
-        public KabelmaschineBlock() {
+        public CableMachineBlock() {
             this(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK).strength(3.5F, 6.0F));
         }
 
-        public KabelmaschineBlock(BlockBehaviour.Properties properties) {
+        public CableMachineBlock(BlockBehaviour.Properties properties) {
             super(properties);
             registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
                     .setValue(HAS_CRANK, false).setValue(TURNS, 0));
@@ -114,7 +114,7 @@ public final class ModBlocks {
 
         @Override
         public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-            return new KabelmaschineBlockEntity(pos, state);
+            return new CableMachineBlockEntity(pos, state);
         }
 
         @Override
@@ -130,7 +130,7 @@ public final class ModBlocks {
         @Override
         protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                 Player player, InteractionHand hand, BlockHitResult hit) {
-            if (!state.getValue(HAS_CRANK) && stack.is(ModItems.KURBEL.get())) {
+            if (!state.getValue(HAS_CRANK) && stack.is(ModItems.CRANK.get())) {
                 if (!level.isClientSide) {
                     level.setBlock(pos, state.setValue(HAS_CRANK, true), Block.UPDATE_ALL);
                     stack.consume(1, player);
@@ -146,14 +146,14 @@ public final class ModBlocks {
                 Player player, BlockHitResult hit) {
             if (player.isShiftKeyDown()) {
                 if (!level.isClientSide && player instanceof ServerPlayer serverPlayer
-                        && level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine) {
+                        && level.getBlockEntity(pos) instanceof CableMachineBlockEntity machine) {
                     serverPlayer.openMenu(machine, pos);
                 }
                 return InteractionResult.SUCCESS;
             }
             if (!state.getValue(HAS_CRANK)) {
                 if (!level.isClientSide && player instanceof ServerPlayer serverPlayer
-                        && level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine) {
+                        && level.getBlockEntity(pos) instanceof CableMachineBlockEntity machine) {
                     serverPlayer.openMenu(machine, pos);
                 }
                 return InteractionResult.SUCCESS;
@@ -162,12 +162,12 @@ public final class ModBlocks {
                 int nextTurn = state.getValue(TURNS) + 1;
                 level.playSound(null, pos, SoundEvents.CHAIN_STEP, SoundSource.BLOCKS, 0.8F, 0.75F + nextTurn * 0.12F);
                 if (nextTurn >= 3) {
-                    if (level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine
+                    if (level.getBlockEntity(pos) instanceof CableMachineBlockEntity machine
                             && machine.canCraft()) {
                         Direction front = state.getValue(FACING);
                         BlockPos output = pos.relative(front);
                         Containers.dropItemStack(level, output.getX() + 0.5, output.getY() + 0.35,
-                                output.getZ() + 0.5, new ItemStack(ModItems.KABEL.get()));
+                                output.getZ() + 0.5, new ItemStack(ModItems.CABLE.get()));
                         machine.consumeIngredients();
                     }
                     nextTurn = 0;
@@ -180,8 +180,8 @@ public final class ModBlocks {
         @Override
         protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
             if (!state.is(newState.getBlock())) {
-                if (state.getValue(HAS_CRANK)) Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.KURBEL.get()));
-                if (level.getBlockEntity(pos) instanceof KabelmaschineBlockEntity machine) {
+                if (state.getValue(HAS_CRANK)) Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.CRANK.get()));
+                if (level.getBlockEntity(pos) instanceof CableMachineBlockEntity machine) {
                     for (int slot = 0; slot < machine.getItems().getSlots(); slot++) {
                         Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), machine.getItems().getStackInSlot(slot));
                     }
@@ -196,23 +196,23 @@ public final class ModBlocks {
         }
     }
 
-    public static class KautschukLogBlock extends RotatedPillarBlock {
-        public KautschukLogBlock() {
+    public static class RubberLogBlock extends RotatedPillarBlock {
+        public RubberLogBlock() {
             super(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).strength(2.0F, 3.0F));
         }
 
         @Override
         public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-            return List.of(new ItemStack(ModItems.KAUTSCHUK_LOG.get()));
+            return List.of(new ItemStack(ModItems.RUBBER_LOG.get()));
         }
     }
 
     /** A bowl attached to a rubber log which slowly collects rubber sap. */
-    public static class KautschukSchaleBlock extends HorizontalDirectionalBlock {
-        public static final MapCodec<KautschukSchaleBlock> CODEC = simpleCodec(KautschukSchaleBlock::new);
+    public static class RubberBowlBlock extends HorizontalDirectionalBlock {
+        public static final MapCodec<RubberBowlBlock> CODEC = simpleCodec(RubberBowlBlock::new);
         public static final BooleanProperty FULL = BlockStateProperties.POWERED;
 
-        public KautschukSchaleBlock(BlockBehaviour.Properties properties) {
+        public RubberBowlBlock(BlockBehaviour.Properties properties) {
             super(properties);
             registerDefaultState(stateDefinition.any()
                     .setValue(FACING, Direction.NORTH)
@@ -232,7 +232,7 @@ public final class ModBlocks {
             }
 
             BlockPos attachedLog = context.getClickedPos().relative(facing.getOpposite());
-            if (!context.getLevel().getBlockState(attachedLog).is(ModBlocks.KAUTSCHUK_LOG.get())
+            if (!context.getLevel().getBlockState(attachedLog).is(ModBlocks.RUBBER_LOG.get())
                     || hasBowlOnTree(context.getLevel(), attachedLog)) {
                 return null;
             }
@@ -242,7 +242,7 @@ public final class ModBlocks {
         @Override
         protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
             BlockPos attachedLog = pos.relative(state.getValue(FACING).getOpposite());
-            return level.getBlockState(attachedLog).is(ModBlocks.KAUTSCHUK_LOG.get());
+            return level.getBlockState(attachedLog).is(ModBlocks.RUBBER_LOG.get());
         }
 
         @Override
@@ -275,7 +275,7 @@ public final class ModBlocks {
                 return InteractionResult.PASS;
             }
             if (!level.isClientSide) {
-                player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.KAUTSCHUK.get()));
+                player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.RUBBER_SAP.get()));
                 level.setBlock(pos, state.setValue(FULL, false), Block.UPDATE_CLIENTS);
             }
             return InteractionResult.SUCCESS;
@@ -301,11 +301,11 @@ public final class ModBlocks {
                 for (Direction direction : Direction.values()) {
                     BlockPos adjacent = logPos.relative(direction);
                     BlockState adjacentState = level.getBlockState(adjacent);
-                    if (adjacentState.is(ModBlocks.KAUTSCHUK_SCHALE.get())
+                    if (adjacentState.is(ModBlocks.RUBBER_BOWL.get())
                             && adjacent.relative(adjacentState.getValue(FACING).getOpposite()).equals(logPos)) {
                         return true;
                     }
-                    if (adjacentState.is(ModBlocks.KAUTSCHUK_LOG.get()) && !visited.contains(adjacent)) {
+                    if (adjacentState.is(ModBlocks.RUBBER_LOG.get()) && !visited.contains(adjacent)) {
                         pending.addLast(adjacent);
                     }
                 }

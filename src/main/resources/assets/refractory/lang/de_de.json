@@ -1,14 +1,14 @@
 {
   "refractory.name": "Refractory",
   "itemGroup.refractory": "Refractory",
-  "item.refractory.kautschuk": "Kautschuk",
-  "item.refractory.gummi": "Gummi",
-  "block.refractory.kautschuk_log": "Kautschukstamm",
-  "block.refractory.kautschuk_leaves": "Kautschukblätter",
-  "block.refractory.kautschuk_sapling": "Kautschuksetzling",
-  "block.refractory.kautschuk_schale": "Kautschukschale",
-  "block.refractory.kabelmaschine": "Kabelmaschine",
-  "item.refractory.kurbel": "Kurbel",
-  "item.refractory.kabel": "Kabel",
-  "container.refractory.kabelmaschine": "Kabelmaschine"
+  "item.refractory.rubber_sap": "Kautschuk",
+  "item.refractory.rubber": "Gummi",
+  "block.refractory.rubber_log": "Kautschukstamm",
+  "block.refractory.rubber_leaves": "Kautschukblätter",
+  "block.refractory.rubber_sapling": "Kautschuksetzling",
+  "block.refractory.rubber_bowl": "Kautschukschale",
+  "block.refractory.cable_machine": "CableMachine",
+  "item.refractory.crank": "Kurbel",
+  "item.refractory.cable": "Kabel",
+  "container.refractory.cable_machine": "CableMachine"
 }

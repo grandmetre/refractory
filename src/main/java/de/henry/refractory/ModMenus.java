@@ -10,8 +10,8 @@ public final class ModMenus {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(Registries.MENU, Refractory.MOD_ID);
 
-    public static final DeferredHolder<MenuType<?>, MenuType<KabelmaschineMenu>> KABELMASCHINE =
-            MENUS.register("kabelmaschine", () -> IMenuTypeExtension.create(KabelmaschineMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<CableMachineMenu>> CABLE_MACHINE =
+            MENUS.register("cable_machine", () -> IMenuTypeExtension.create(CableMachineMenu::new));
 
     private ModMenus() {
     }
